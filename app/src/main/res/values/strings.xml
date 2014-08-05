@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">G@ap</string>
+    <string name="title_myfeed">My Feed</string>
+    <string name="title_hoestels">Hostels</string>
+    <string name="title_department">Department</string>
+    <string name="title_club">Sport/Club</string>
+    <string name="register">Register</string>
+    <string name="complain">Complain/Report</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Announcement</string>
+    <string name="action_settings">Settings</string>
+    <string name="lost_and_found">Lost And Found</string>
+    <string name="bus_tracking">Bus Tracking</string>
+    <string name="no_notif_message">Nothing to show here :( Please refresh of navigate to Other channel and subscribe </string>
+    <string name="loading_feed_error">There is a problem in Loading the feed !</string>
+    <string name="about_us">About Us</string>
+
+    <string-array name="dummy_notifs">
+        <item>Monday Timetable Classes Today</item>
+        <item>Workshop on Android</item>
+        <item>IITG Ranked 76 in Times Ranking</item>
+        <item>Sparda is here ..Brace yourself</item>
+    </string-array>
+</resources>

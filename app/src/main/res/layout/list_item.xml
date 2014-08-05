@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp"
+    android:background="#2e3b5aff"
+   >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="0dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:weightSum="1"
+            android:layout_marginBottom="0dp"
+            android:paddingBottom="0dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="Hello"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_orange_light"
+                android:id="@+id/notif_header"
+                android:singleLine="true"
+                android:layout_weight=".8"
+                android:password="false"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="5/2 "
+                android:id="@+id/notif_date"
+                android:layout_weight="0.2"
+                android:layout_gravity="top"
+                android:gravity="end"
+                android:layout_marginBottom="0dp"
+                android:paddingBottom="0dp"
+                android:singleLine="true" />
+
+        </LinearLayout>
+
+
+        <TextView
+        android:id="@+id/notif_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15dip"
+        android:paddingLeft="5dp"
+        android:text="As per academic calender there will be monday time table today i.e. friday 3/2/14 "
+        android:maxLines="3"
+            android:paddingStart="10dp" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="end"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_bright"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Dihing"
+            android:textSize="10dp"
+            android:id="@+id/chennal_stamp"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentEnd="true"
+            android:singleLine="true"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:gravity="center_vertical"
+         />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#ffff0002"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="26/5"
+                android:id="@+id/event_date_stamp"
+                android:layout_alignParentLeft="true"
+                android:singleLine="true"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:gravity="center_vertical"
+                android:textSize="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="auditorium"
+                android:id="@+id/event_venue_stamp"
+                android:layout_toRightOf="@+id/event_date_stamp"
+                android:layout_marginLeft="10dp"
+                android:background="#ff8fa6ff"
+                android:singleLine="true"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:gravity="center_vertical"
+                android:textColor="#fcffffff"
+                android:textSize="10dp"/>
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>
+
+
