@@ -23,6 +23,7 @@ public class FeedAdapter extends BaseAdapter implements AbsListView.OnScrollList
 
     ArrayList<Notification> notificationList;
     Context c;
+    boolean isForParticularChannel = false;
 
     public FeedAdapter(Context c) {
         this.c = c;
@@ -52,10 +53,12 @@ public class FeedAdapter extends BaseAdapter implements AbsListView.OnScrollList
         Notification notif = notificationList.get(position);
         ViewHolder mViewHolder;
         if (v == null) {//first time creation
-            v = inflater.inflate(R.layout.list_item, parent, false);
+            v = inflater.inflate(R.layout.notif_list_item, parent, false);
             mViewHolder = new ViewHolder(v);
             v.setTag(mViewHolder);
             mViewHolder = (ViewHolder) v.getTag();
+            if (isForParticularChannel)
+                v.findViewById(R.id.chennal_stamp).setVisibility(View.INVISIBLE);
             mViewHolder.headerText.setText(notif.getHeader());
             mViewHolder.contentText.setText(notif.getContent());
             mViewHolder.dateText.setText(notif.getDate().getDay() + "/" + notif.getDate().getMonth());
@@ -122,6 +125,10 @@ public class FeedAdapter extends BaseAdapter implements AbsListView.OnScrollList
 
     }
 
+    public void setIsForParticularChannel(boolean isForParticularChannel) {
+        this.isForParticularChannel = isForParticularChannel;
+    }
+
     private class ViewHolder {
         public TextView headerText, contentText, dateText, eventDateText, channelText, eventVenueText;
 
@@ -135,4 +142,5 @@ public class FeedAdapter extends BaseAdapter implements AbsListView.OnScrollList
             channelText = (TextView) v.findViewById(R.id.chennal_stamp);
         }
     }
+
 }

@@ -24,4 +24,72 @@
         <item>IITG Ranked 76 in Times Ranking</item>
         <item>Sparda is here ..Brace yourself</item>
     </string-array>
+    <string-array name="hostel_array">
+        <item>Barak</item>
+        <item>Brahmaputra</item>
+        <item>Dibang</item>
+        <item>Dihing</item>
+        <item>Kameng</item>
+        <item>Kapili</item>
+        <item>Manas</item>
+        <item>Siang</item>
+        <item>Subansiri</item>
+        <item>Umiam</item>
+        <item>Dhansiri</item>
+    </string-array>
+
+    <array name="departments_array">
+        <item>Biotechnology</item>
+        <item>Chemical Engineering</item>
+        <item>Chemistry</item>
+        <item>Civil Engineering</item>
+        <item>Computer Science and Eng.</item>
+        <item>Design</item>
+        <item>Electronic and Electrical Eng.</item>
+        <item>Humanities and Social Sc.</item>
+        <item>Mathematics</item>
+        <item>Mechanical Engineering</item>
+        <item>Physics</item>
+    </array>
+    <array name="departments_short_array">
+        <item>BT</item>
+        <item>CL</item>
+        <item>CST</item>
+        <item>CE</item>
+        <item>CSE</item>
+        <item>DoD</item>
+        <item>EEE</item>
+        <item>HSS</item>
+        <item>MNC</item>
+        <item>ME</item>
+        <item>PH</item>
+    </array>
+    <array name="clubs">
+        <item>Club 1</item>
+        <item>Club 2</item>
+        <item>Club 3</item>
+        <item>Club 4</item>
+        <item>Club 5</item>
+        <item>Club 6</item>
+        <item>Club 7</item>
+        <item>Club 8</item>
+        <item>Club 9</item>
+        <item>Club 10</item>
+        <item>Club 11</item>
+        <item>Club 12</item>
+        <item>Club 13</item>
+        <item>Club 14</item>
+        <item>Club 15</item>
+        <item>Club 16</item>
+    </array>
+
+    <string name="title_activity_hostel">Hostel</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_detail_feed">DetailFeed</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_department">Department</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
 </resources>

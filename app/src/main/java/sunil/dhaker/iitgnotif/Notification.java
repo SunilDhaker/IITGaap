@@ -3,13 +3,14 @@ package sunil.dhaker.iitgnotif;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Sunil965@live.com(Sunil Dhaker) on 04-08-2014.
  */
 @ParseClassName("Notification")
-public class Notification extends ParseObject {
+public class Notification extends ParseObject implements Serializable {
 
 
     public Date getDate() {

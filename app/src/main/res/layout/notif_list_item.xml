@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingBottom="5dp"
-    android:background="#2e3b5aff"
+    android:background="#00000000"
    >
 
     <LinearLayout
@@ -30,7 +30,7 @@
                 android:singleLine="true"
                 android:layout_weight=".8"
                 android:password="false"
-                />
+                android:typeface="serif" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
             android:layout_marginRight="5dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_blue_bright"
             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -79,11 +79,11 @@
             android:singleLine="true"
             android:paddingRight="5dp"
             android:paddingLeft="5dp"
-            android:gravity="center_vertical"
+            android:gravity="center_vertical|center_horizontal"
          />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:background="#ffff0002"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -93,11 +93,11 @@
                 android:singleLine="true"
                 android:paddingRight="5dp"
                 android:paddingLeft="5dp"
-                android:gravity="center_vertical"
+                android:gravity="center_vertical|center_horizontal"
                 android:textSize="10dp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="auditorium"
@@ -108,7 +108,7 @@
                 android:singleLine="true"
                 android:paddingRight="5dp"
                 android:paddingLeft="5dp"
-                android:gravity="center_vertical"
+                android:gravity="center_vertical|center_horizontal"
                 android:textColor="#fcffffff"
                 android:textSize="10dp"/>
 
