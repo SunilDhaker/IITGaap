@@ -22,7 +22,6 @@ public class Hostel extends Activity {
         mHostelFeed.setAdapter(mHostelFeedAdapter);
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -36,8 +35,8 @@ public class Hostel extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         if(getIntent().getIntExtra("type",HOSTEL) == HOSTEL) {
             int id = getIntent().getIntExtra("id", 0);
-            setTitle(getResources().getStringArray(R.array.clubs)[id]);
-        }else if(getIntent().getIntExtra("type",HOSTEL) == HOSTEL){
+            setTitle(getResources().getStringArray(R.array.hostel_array)[id]);
+        }else if(getIntent().getIntExtra("type",HOSTEL) == CLUB){
             int id = getIntent().getIntExtra("id", 0);
             setTitle(getResources().getStringArray(R.array.clubs)[id]);
         }
@@ -50,7 +49,6 @@ public class Hostel extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         if (id == R.id.action_settings) {
             return true;
         }

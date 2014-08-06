@@ -88,8 +88,10 @@
     <string name="title_activity_detail_feed">DetailFeed</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_department">Department</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="department_feed">Feed</string>
+    <string name="first_year">1st Year</string>
+    <string name="second_year">2nd Year</string>
+    <string name="third_year">3rd Year</string>
+    <string name="fourth_year">4th Year</string>
 
 </resources>
