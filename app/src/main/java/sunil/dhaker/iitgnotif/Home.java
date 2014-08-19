@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.parse.ParseAnalytics;
 
 public class Home extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -37,6 +40,7 @@ public class Home extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+        ParseAnalytics.trackAppOpened(getIntent());
 
     }
 
@@ -66,10 +70,14 @@ public class Home extends Activity
                         .commit();
                 break;
             case 4:
+                Intent i = new Intent(this, LostAndFound.class);
+                startActivity(i);
                 break;
             case 5:
                 break;
             case 6:
+                Intent i1 = new Intent(this, Registration.class);
+                startActivity(i1);
                 break;
         }
 
@@ -122,6 +130,11 @@ public class Home extends Activity
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
+        }
+        if (id == R.id.anounce_all) {
+            Intent i = new Intent(this, AnouncmentActivity.class);
+            i.putExtra("channel", "IITG-ALL");
+            startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }

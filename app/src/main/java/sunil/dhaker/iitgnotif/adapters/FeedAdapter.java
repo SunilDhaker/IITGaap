@@ -1,4 +1,4 @@
-package sunil.dhaker.iitgnotif;
+package sunil.dhaker.iitgnotif.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,7 +14,12 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
+import sunil.dhaker.iitgnotif.Notification;
+import sunil.dhaker.iitgnotif.R;
 
 /**
  * Created by SONY on 02-08-2014.
@@ -23,11 +28,15 @@ public class FeedAdapter extends BaseAdapter implements AbsListView.OnScrollList
 
     ArrayList<Notification> notificationList;
     Context c;
-    boolean isForParticularChannel = false;
+    Date current;
+    ArrayList<String> channels;
+    boolean isForParticularChannel = false, isLoading = false;
 
     public FeedAdapter(Context c) {
         this.c = c;
+        channels = new ArrayList<String>();
         notificationList = new ArrayList<Notification>();
+        current = Calendar.getInstance().getTime();
     }
 
     @Override
@@ -61,7 +70,13 @@ public class FeedAdapter extends BaseAdapter implements AbsListView.OnScrollList
                 v.findViewById(R.id.chennal_stamp).setVisibility(View.INVISIBLE);
             mViewHolder.headerText.setText(notif.getHeader());
             mViewHolder.contentText.setText(notif.getContent());
-            mViewHolder.dateText.setText(notif.getDate().getDay() + "/" + notif.getDate().getMonth());
+            long min = current.getTime() / 60000 - notif.getDate().getTime() / 60000;
+            if (min < 60)
+                mViewHolder.dateText.setText(min + " min");
+            else if (min < 60 * 24)
+                mViewHolder.dateText.setText(min / 60 + " hr");
+            else
+                mViewHolder.dateText.setText(min / (60 * 24) + " days");
             mViewHolder.channelText.setText(notif.getChannel());
             if (notif.getIsEvent()) {
                 mViewHolder.eventDateText.setVisibility(View.VISIBLE);
@@ -76,7 +91,13 @@ public class FeedAdapter extends BaseAdapter implements AbsListView.OnScrollList
             mViewHolder = (ViewHolder) v.getTag();
             mViewHolder.headerText.setText(notif.getHeader());
             mViewHolder.contentText.setText(notif.getContent());
-            mViewHolder.dateText.setText(notif.getDate().getDay() + "/" + notif.getDate().getMonth());
+            long min = current.getTime() / 60000 - notif.getDate().getTime() / 60000;
+            if (min < 60)
+                mViewHolder.dateText.setText(min + " min");
+            else if (min < 60 * 24)
+                mViewHolder.dateText.setText(min / 60 + " hr");
+            else
+                mViewHolder.dateText.setText(min / (60 * 24) + " days");
             mViewHolder.channelText.setText(notif.getChannel());
             if (notif.getIsEvent()) {
                 mViewHolder.eventDateText.setVisibility(View.VISIBLE);
@@ -101,32 +122,79 @@ public class FeedAdapter extends BaseAdapter implements AbsListView.OnScrollList
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        if (firstVisibleItem + visibleItemCount > totalItemCount - 3) {
-            //TODO get more data code here :)
-            notifyDataSetChanged();
-        }
+//        if (firstVisibleItem + visibleItemCount > totalItemCount - 3) {
+//            Toast.makeText(c, "loading", Toast.LENGTH_SHORT);
+//            if(totalItemCount > 9)
+//                loadMore(notificationList.get(totalItemCount-1));
+//            Log.d("","dffsdfsfsfsfsdf");
+//            notifyDataSetChanged();
+//        }
     }
 
     public void loadFeed() {
         ParseQuery<Notification> query = ParseQuery.getQuery(Notification.class);
         query.setCachePolicy(ParseQuery.CachePolicy.CACHE_THEN_NETWORK);
+        query.whereContainedIn("channel", channels);
         query.addDescendingOrder("createdAt");
-        query.findInBackground(new FindCallback<Notification>() {
-            @Override
-            public void done(List<Notification> notifications, ParseException e) {
-                if (e == null) {
-                    notificationList = (ArrayList<Notification>) notifications;
-                    notifyDataSetChanged();
-                } else {
-                    Toast.makeText(c, R.string.loading_feed_error, Toast.LENGTH_SHORT);
+        if (!isLoading)
+            query.findInBackground(new FindCallback<Notification>() {
+                @Override
+                public void done(List<Notification> notifications, ParseException e) {
+                    if (e == null) {
+                        notificationList = (ArrayList<Notification>) notifications;
+                        notifyDataSetChanged();
+                    }
                 }
-            }
-        });
+            });
+    }
 
+    public void loadMore(Notification lastNotif) {
+        ParseQuery<Notification> query = ParseQuery.getQuery(Notification.class);
+        query.addDescendingOrder("createdAt");
+        query.whereLessThan("createdAt", lastNotif.getDate());
+        query.setLimit(10);
+        if (!isLoading) {
+            isLoading = true;
+            query.findInBackground(new FindCallback<Notification>() {
+                @Override
+                public void done(List<Notification> notifications, ParseException e) {
+                    if (e == null) {
+                        addIfNotExist((ArrayList<Notification>) notifications);
+                        notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(c, R.string.loading_feed_error, Toast.LENGTH_SHORT);
+                    }
+                    isLoading = false;
+                }
+            });
+
+        }
     }
 
     public void setIsForParticularChannel(boolean isForParticularChannel) {
         this.isForParticularChannel = isForParticularChannel;
+    }
+
+    public void addIfNotExist(ArrayList<Notification> notifs) {
+        boolean ifExists = false;
+        for (Notification notif : notifs) {
+            ifExists = false;
+            for (Notification notification : notificationList) {
+                if (notif.getID() == notification.getID())
+                    ifExists = true;
+            }
+            if (!ifExists) {
+                notificationList.add(notif);
+            }
+        }
+    }
+
+    public void setChannel(String channel) {
+        channels.add(channel);
+    }
+
+    public void setChannelList(ArrayList<String> channels) {
+        this.channels.addAll(channels);
     }
 
     private class ViewHolder {
@@ -137,7 +205,7 @@ public class FeedAdapter extends BaseAdapter implements AbsListView.OnScrollList
             headerText = (TextView) v.findViewById(R.id.notif_header);
             contentText = (TextView) v.findViewById(R.id.notif_content);
             dateText = (TextView) v.findViewById(R.id.notif_date);
-            eventDateText = (TextView) v.findViewById(R.id.event_date_stamp);
+            eventDateText = (TextView) v.findViewById(R.id.lf_date_stamp);
             eventVenueText = (TextView) v.findViewById(R.id.event_venue_stamp);
             channelText = (TextView) v.findViewById(R.id.chennal_stamp);
         }

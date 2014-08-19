@@ -22,7 +22,10 @@ public class Notification extends ParseObject implements Serializable {
     }
 
     public String getHeader() {
-        return getString("header");
+        if (getString("header") != null)
+            return getString("header");
+        else
+            return "No Header";
     }
 
     public void setHeader(String header) {
@@ -30,7 +33,10 @@ public class Notification extends ParseObject implements Serializable {
     }
 
     public String getContent() {
-        return getString("content");
+        if (getString("content") != null)
+            return getString("content");
+        else
+            return "No Content";
     }
 
     public void setContent(String content) {
@@ -62,7 +68,10 @@ public class Notification extends ParseObject implements Serializable {
     }
 
     public String getEventVenue() {
-        return getString("eventVenue");
+        if (getString("eventVenue") != null)
+            return getString("eventVenue");
+        else
+            return "No venue";
     }
 
     public void setEventVenue(String venue) {

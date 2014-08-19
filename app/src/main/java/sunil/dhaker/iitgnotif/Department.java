@@ -1,24 +1,22 @@
 package sunil.dhaker.iitgnotif;
 
-import java.util.Locale;
-
-import android.app.Activity;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.TextView;
-import sunil.dhaker.iitgnotif.R;
+import android.widget.Toast;
+
+import com.parse.PushService;
+
+import java.util.Locale;
 
 public class Department extends Activity implements ActionBar.TabListener {
 
@@ -43,7 +41,9 @@ public class Department extends Activity implements ActionBar.TabListener {
         setContentView(R.layout.activity_department);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         // Set up the action bar.
+        String department_name = getResources().getStringArray(R.array.departments_array)[getIntent().getIntExtra("departmentID", 0)];
         final ActionBar actionBar = getActionBar();
+        setTitle(department_name);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         // Create the adapter that will return a fragment for each of the three
@@ -73,10 +73,11 @@ public class Department extends Activity implements ActionBar.TabListener {
             actionBar.addTab(
                     actionBar.newTab()
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
-                            .setTabListener(this));
+                            .setTabListener(this)
+            );
         }
-    }
 
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,6 +85,7 @@ public class Department extends Activity implements ActionBar.TabListener {
         getMenuInflater().inflate(R.menu.department, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -93,6 +95,20 @@ public class Department extends Activity implements ActionBar.TabListener {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
+        }
+        if (id == android.R.id.home) {
+            super.onBackPressed();
+            return true;
+        }
+        if (id == R.id.department_subscribe) {
+            PushService.subscribe(getApplication(), getTitle().toString(), Home.class);
+
+            Toast.makeText(getApplication(), "You are subscribed to cannel " + getTitle(), Toast.LENGTH_SHORT).show();
+        }
+        if (id == R.id.department_announce) {
+            Intent i = new Intent(this, AnouncmentActivity.class);
+            i.putExtra("channel", getTitle().toString());
+            startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -112,6 +128,7 @@ public class Department extends Activity implements ActionBar.TabListener {
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     }
 
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -126,7 +143,32 @@ public class Department extends Activity implements ActionBar.TabListener {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            Log.d("", "" + position);
+            if (position == 1 + 1) {
+                Department1st d = new Department1st();
+                d.setChannelName(getIntent().getIntExtra("departmentID", 0));
+                return d;
+            }
+            if (position == 2 + 1) {
+                Department2nd d = new Department2nd();
+                d.setChannelName(getIntent().getIntExtra("departmentID", 0));
+                return d;
+            }
+            if (position == 3 + 1) {
+                Department3rd d = new Department3rd();
+                d.setChannelName(getIntent().getIntExtra("departmentID", 0));
+                return d;
+            }
+            if (position == 4 + 1) {
+                Department4th d = new Department4th();
+                d.setChannelName(getIntent().getIntExtra("departmentID", 0));
+                return d;
+            }
+            {
+                DepartmentAll d = new DepartmentAll();
+                d.setChannelName(getIntent().getIntExtra("departmentID", 0));
+                return d;
+            }
         }
 
         @Override
@@ -154,39 +196,5 @@ public class Department extends Activity implements ActionBar.TabListener {
         }
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_department, container, false);
-            return rootView;
-        }
-    }
-
 }
+

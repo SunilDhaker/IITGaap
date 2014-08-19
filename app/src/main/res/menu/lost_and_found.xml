@@ -1,14 +1,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Home">
-    <item
-        android:id="@+id/anounce_all"
-        android:icon="@drawable/announcement"
-        android:showAsAction="withText|ifRoom"
-        android:title="@string/action_example" />
+    tools:context="sunil.dhaker.iitgnotif.LostAndFound">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/action_settings" />
+    <item
+        android:id="@+id/lost_button"
+        android:showAsAction="always"
+        android:title="LOST" />
+    <item
+        android:id="@+id/found_button"
+        android:showAsAction="always"
+        android:title="FOUND" />
 </menu>

@@ -1,69 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:weightSum="1">
 
     <TextView
+        android:id="@+id/nd_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_gravity="center_horizontal"
         android:text="Header"
-        android:id="@+id/nd_header"
-        android:layout_gravity="center_horizontal" />
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="0.94">
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
     <TextView
+        android:id="@+id/nd_notif_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="today"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Content of notification"
-        android:id="@+id/nd_content"
-        android:layout_gravity="center_horizontal" />
-   </ScrollView>
+        android:layout_height="wrap_content"
+        android:layout_weight="0.94">
+
+        <TextView
+            android:id="@+id/nd_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:text="Content of notification"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </ScrollView>
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/nd_venue_container"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/nd_venue_container">
+        android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/nd_venue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Venue : "
-            android:id="@+id/nd_venue" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
+            android:id="@+id/nd_venue_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Venue value"
-            android:id="@+id/nd_venue_value" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/nd_event_time_container"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/nd_event_time_container">
+        android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Time and Date : "
-        android:id="@+id/nd_event_time" />
+        <TextView
+            android:id="@+id/nd_event_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time and Date : "
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Date value"
-        android:id="@+id/nd_event_time_value" />
+        <TextView
+            android:id="@+id/nd_event_time_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date value"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
 </LinearLayout>

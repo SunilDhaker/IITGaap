@@ -6,26 +6,36 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.parse.PushService;
-
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import sunil.dhaker.iitgnotif.adapters.FeedAdapter;
 
-
 /**
- * Created by SONY on 01-08-2014.
+ * Created by Sunil965@live.com(Sunil Dhaker) on 16-08-2014.
  */
-public class NewsFeed extends Fragment implements ListView.OnItemClickListener {
 
+public class DepartmentAll extends Fragment implements ListView.OnItemClickListener {
     FeedAdapter feedAdapter;
     ListView listContainerOfNotif;
+    String channel_name;
+    int channel_id;
+
+    public void setChannelName(int position) {
+        channel_id = position;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.department_all, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,18 +44,18 @@ public class NewsFeed extends Fragment implements ListView.OnItemClickListener {
         listContainerOfNotif.setAdapter(feedAdapter);
         listContainerOfNotif.setOnScrollListener(feedAdapter);
         listContainerOfNotif.setOnItemClickListener(this);
+        getActivity().setTitle(channel_name);
         //TODO: add the loading newsfeed here !!
         return view;
     }
+
 
     @Override
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
         feedAdapter = new FeedAdapter(activity);
-        ArrayList<String> channels = new ArrayList<String>(PushService.getSubscriptions(getActivity().getApplication()));
-        channels.add("All");
-        channels.add("IITG-ALL");
-        feedAdapter.setChannelList(channels);
+        channel_name = getResources().getStringArray(R.array.departments_short_array)[channel_id];
+        feedAdapter.setChannel(channel_name);
         feedAdapter.loadFeed();
     }
 
@@ -75,4 +85,6 @@ public class NewsFeed extends Fragment implements ListView.OnItemClickListener {
             i.putExtra("time", min / (60 * 24) + " days ago ");
         startActivity(i);
     }
+
+
 }

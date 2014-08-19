@@ -4,10 +4,7 @@ import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.PushService;
 
-public class Application extends android.app.Application {
-
-    public Application() {
-    }
+public class Application1 extends android.app.Application {
 
     @Override
     public void onCreate() {

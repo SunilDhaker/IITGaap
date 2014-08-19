@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import sunil.dhaker.iitgnotif.adapters.HostelListAdapter;
+
 /**
  * Created by Sunil965@live.com(Sunil Dhaker) on 05-08-2014.
  */
@@ -43,7 +45,7 @@ public class Hostels extends Fragment implements ListView.OnItemClickListener {
         Activity activity = getActivity();
         Intent i = new Intent(activity, Hostel.class);
         i.putExtra("id", position);
-        i.putExtra("type",Hostel.HOSTEL);
+        i.putExtra("type", Hostel.HOSTEL);
         startActivity(i);
     }
 }

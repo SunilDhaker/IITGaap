@@ -10,8 +10,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import sunil.dhaker.iitgnotif.adapters.ClubsListAdapter;
 
-public class Clubs extends Fragment implements ListView.OnItemClickListener{
+
+public class Clubs extends Fragment implements ListView.OnItemClickListener {
 
     ClubsListAdapter mClubAdapter;
     ListView mClubListView;
@@ -41,7 +43,7 @@ public class Clubs extends Fragment implements ListView.OnItemClickListener{
         Activity activity = getActivity();
         Intent i = new Intent(activity, Hostel.class);
         i.putExtra("id", position);
-        i.putExtra("type",Hostel.CLUB);
+        i.putExtra("type", Hostel.CLUB);
         startActivity(i);
     }
 

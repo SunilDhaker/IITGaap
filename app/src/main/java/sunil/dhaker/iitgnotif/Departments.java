@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import sunil.dhaker.iitgnotif.adapters.DepartmentsListAdapter;
+
 /**
  * Created by Sunil965@live.com(Sunil Dhaker) on 06-08-2014.
  */
