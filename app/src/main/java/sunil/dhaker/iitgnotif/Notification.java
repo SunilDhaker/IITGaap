@@ -1,7 +1,11 @@
 package sunil.dhaker.iitgnotif;
 
+import android.util.Log;
+
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -68,7 +72,7 @@ public class Notification extends ParseObject implements Serializable {
     }
 
     public String getEventVenue() {
-        if (getString("eventVenue") != null)
+        if (!getString("eventVenue").contentEquals(""))
             return getString("eventVenue");
         else
             return "No venue";
@@ -78,4 +82,30 @@ public class Notification extends ParseObject implements Serializable {
         put("eventVenue", venue);
     }
 
+    public void setUser(ParseUser user) {
+        put("user", user);
+    }
+
+    public String getUserEmail() {
+        if (get("user") == null) {
+            return "Anonumouse user";
+        } else {
+
+            ParseUser u = (ParseUser) get("user");
+            try {
+                u.fetchIfNeeded();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            Log.d("user" , u.getEmail());
+            return u.getEmail();
+        }
+    }
+
+    public  void setSenderName(String name){
+        put("sender" , name);
+    }
+    public  String getSenderName(){
+       return (String) get("sender");
+    }
 }

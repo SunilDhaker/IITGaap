@@ -5,14 +5,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.parse.PushService;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import sunil.dhaker.iitgnotif.adapters.FeedAdapter;
 
-public class Hostel extends Activity {
+public class Hostel extends Activity implements ListView.OnItemClickListener {
 
     public static int HOSTEL = 0;
     public static int CLUB = 1;
@@ -34,6 +39,7 @@ public class Hostel extends Activity {
         mHostelFeedAdapter.setIsForParticularChannel(true);
         mHostelFeedAdapter.setChannel(getTitle().toString());
         mHostelFeed.setAdapter(mHostelFeedAdapter);
+        mHostelFeed.setOnItemClickListener(this);
     }
 
     @Override
@@ -65,16 +71,45 @@ public class Hostel extends Activity {
             return true;
         }
         if (id == R.id.hostel_subscribe) {
-            PushService.subscribe(getApplication(), getTitle().toString(), Home.class);
-            Toast.makeText(getApplication(), "You are subscribed to cannel " + getTitle(), Toast.LENGTH_SHORT).show();
-
+            if (PushService.getSubscriptions(getApplication()).contains(getTitle())) {
+                PushService.unsubscribe(getApplication(), getTitle().toString());
+                Toast.makeText(getApplication(), "You are  UNSUBSIDISED from " + getTitle(), Toast.LENGTH_SHORT).show();
+            } else {
+                PushService.subscribe(getApplication(), getTitle().toString(), Home.class);
+                Toast.makeText(getApplication(), "You are subscribed to cannel " + getTitle(), Toast.LENGTH_SHORT).show();
+            }
         }
 
         if (id == R.id.hostel_announce) {
-            Intent i = new Intent(this, AnouncmentActivity.class);
+            Intent i = new Intent(this, CheckUser.class);
             i.putExtra("channel", getTitle().toString());
             startActivity(i);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Activity activity = this;
+        Notification notification = (Notification) parent.getItemAtPosition(position);
+        Intent i = new Intent(activity, DetailFeed.class);
+        i.putExtra("notif", notification.getID());
+        i.putExtra("title", notification.getHeader());
+        i.putExtra("content", notification.getContent());
+        i.putExtra("isEvent", notification.getIsEvent());
+        i.putExtra("event_venue", notification.getEventVenue());
+        Date d = notification.getEventDate();
+        i.putExtra("event_time", d.getHours() + ":" + d.getMinutes() + " " + d.getDay() + "/" + d.getMonth());
+        i.putExtra("channel", notification.getChannel());
+        i.putExtra("sender", notification.getSenderName());
+        long min = Calendar.getInstance().getTime().getTime() / 60000 - notification.getDate().getTime() / 60000;
+        if (min < 60)
+            i.putExtra("time", min + " min ago");
+        else if (min < 60 * 24)
+            i.putExtra("time", min / 60 + " hr ago");
+        else
+            i.putExtra("time", min / (60 * 24) + " days ago ");
+        startActivity(i);
     }
 }

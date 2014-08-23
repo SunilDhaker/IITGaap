@@ -12,13 +12,14 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class DetailFeed extends Activity {
 
     Notification notification;
     TextView header, content, datesent, eventDate, eventVenue, channel, sender;
-    View eventDateContainer, eventVenueContainer;
-    String sHeader, sContent, sEventVenue, stime, eventTime;
+    View eventContainer;
+    String sHeader, sContent, sEventVenue, stime, eventTime, senders, channels;
     boolean isEvent;
 
     @Override
@@ -27,7 +28,7 @@ public class DetailFeed extends Activity {
         setContentView(R.layout.detail_notif);
         findViewElement();
         initializeView();
-        updateView();
+        // updateView();
     }
 
 
@@ -61,8 +62,9 @@ public class DetailFeed extends Activity {
         datesent = (TextView) findViewById(R.id.nd_notif_date);
         eventDate = (TextView) findViewById(R.id.nd_event_time_value);
         eventVenue = (TextView) findViewById(R.id.nd_venue_value);
-        eventDateContainer = findViewById(R.id.nd_event_time_container);
-        eventVenueContainer = findViewById(R.id.nd_venue_container);
+        channel = (TextView) findViewById(R.id.nd_notif_cannel);
+        eventContainer = findViewById(R.id.nd_event_container);
+
     }
 
     public void initializeView() {
@@ -70,22 +72,23 @@ public class DetailFeed extends Activity {
         sContent = getIntent().getStringExtra("content");
         isEvent = getIntent().getBooleanExtra("isEvent", false);
         stime = getIntent().getStringExtra("time");
+        channels = getIntent().getStringExtra("channel");
+        senders = getIntent().getStringExtra("sender");
         header.setText(sHeader);
         content.setText(sContent);
         datesent.setText(stime);
+        channel.setText(channels);
         if (isEvent) {
             sEventVenue = getIntent().getStringExtra("event_venue");
             eventTime = getIntent().getStringExtra("event_time");
-            eventDateContainer.setVisibility(View.VISIBLE);
-            eventVenueContainer.setVisibility(View.VISIBLE);
             eventDate.setText(eventTime);
             eventVenue.setText(sEventVenue);
+            eventContainer.setVisibility(View.VISIBLE);
+            eventVenue.setText(sEventVenue);
         } else {
-
-            eventVenueContainer.setVisibility(View.INVISIBLE);
-            eventDateContainer.setVisibility(View.INVISIBLE);
-
+            eventContainer.setVisibility(View.INVISIBLE);
         }
+        setTitle(senders);
     }
 
     public void updateView() {
@@ -107,7 +110,8 @@ public class DetailFeed extends Activity {
                 if (isEvent) {
                     eventDate.setVisibility(View.VISIBLE);
                     eventVenue.setVisibility(View.VISIBLE);
-                    eventDate.setText(notification.getDate().toString());
+                    Date d = notification.getEventDate();
+                    eventDate.setText(d.getHours() + ":" + d.getMinutes() + " " + d.getDay() + "/" + d.getMonth());
                     eventVenue.setText(notification.getEventVenue());
                 } else {
                     eventDate.setVisibility(View.INVISIBLE);

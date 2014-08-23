@@ -102,11 +102,10 @@ public class Department extends Activity implements ActionBar.TabListener {
         }
         if (id == R.id.department_subscribe) {
             PushService.subscribe(getApplication(), getTitle().toString(), Home.class);
-
             Toast.makeText(getApplication(), "You are subscribed to cannel " + getTitle(), Toast.LENGTH_SHORT).show();
         }
         if (id == R.id.department_announce) {
-            Intent i = new Intent(this, AnouncmentActivity.class);
+            Intent i = new Intent(this, CheckUser.class);
             i.putExtra("channel", getTitle().toString());
             startActivity(i);
         }

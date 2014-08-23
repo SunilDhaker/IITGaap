@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import sunil.dhaker.iitgnotif.adapters.FeedAdapter;
 
@@ -69,7 +70,10 @@ public class Department3rd extends Fragment implements ListView.OnItemClickListe
         i.putExtra("content", notification.getContent());
         i.putExtra("isEvent", notification.getIsEvent());
         i.putExtra("event_venue", notification.getEventVenue());
-        i.putExtra("event_time", notification.getEventDate());
+        Date d = notification.getEventDate();
+        i.putExtra("event_time", d.getHours() + ":" + d.getMinutes() + " " + d.getDay() + "/" + d.getMonth());
+        i.putExtra("channel", notification.getChannel());
+        i.putExtra("sender", notification.getSenderName());
         long min = Calendar.getInstance().getTime().getTime() / 60000 - notification.getDate().getTime() / 60000;
         if (min < 60)
             i.putExtra("time", min + " min ago");

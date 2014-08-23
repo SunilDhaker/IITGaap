@@ -14,12 +14,14 @@ import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParsePush;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.PushService;
 import com.parse.SaveCallback;
 import com.parse.SendCallback;
 
 import java.util.Calendar;
 
-public class AnouncmentActivity extends Activity implements CheckBox.OnCheckedChangeListener {
+public class Anouncment extends Activity implements CheckBox.OnCheckedChangeListener {
 
     TextView title, content, date, venue;
     CheckBox isEventMark;
@@ -64,36 +66,16 @@ public class AnouncmentActivity extends Activity implements CheckBox.OnCheckedCh
             n.setChannel(getIntent().getStringExtra("channel"));
             n.setEventVenue(venue.getText().toString());
             n.setEventDate(Calendar.getInstance().getTime());
+            n.setUser(ParseUser.getCurrentUser());
+            n.setSenderName(ParseUser.getCurrentUser().getUsername());
             n.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
                     if (e != null) {
                         Toast.makeText(getApplication(), "msg sending failed ", Toast.LENGTH_SHORT).show();
-                        ParseQuery<ParseInstallation> installationParseQuery = ParseInstallation.getQuery();
-                        ParsePush.sendMessageInBackground("" + title.getText().toString(), installationParseQuery, new SendCallback() {
-                            @Override
-                            public void done(ParseException e) {
-                                if (e != null)
-                                    Toast.makeText(getApplication(), "push sending failed ", Toast.LENGTH_SHORT).show();
-                                else
-                                    Toast.makeText(getApplication(), "msg sending success ", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    } else
-                        Toast.makeText(getApplication(), "msg sending Success ", Toast.LENGTH_SHORT).show();
-                    ParseQuery<ParseInstallation> installationParseQuery = ParseInstallation.getQuery();
-                    ParsePush.sendMessageInBackground("" + title.getText().toString(), installationParseQuery, new SendCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            if (e != null)
-                                Toast.makeText(getApplication(), "push sending failed ", Toast.LENGTH_SHORT).show();
-                            else
-                                Toast.makeText(getApplication(), "msg sending success ", Toast.LENGTH_SHORT).show();
-
-
-                        }
-                    });
-
+                    } else {
+                        sendPushOnTargetDevices();
+                    }
                 }
             });
             finish();
@@ -112,5 +94,35 @@ public class AnouncmentActivity extends Activity implements CheckBox.OnCheckedCh
             venue.setVisibility(View.VISIBLE);
             date.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void sendPushOnTargetDevices() {
+        PushService.startServiceIfRequired(getApplication());
+        Toast.makeText(getApplication(), "msg sending Success ", Toast.LENGTH_SHORT).show();
+        if (getIntent().getStringExtra("channel").contentEquals("IITG-ALL")) {
+            ParseQuery<ParseInstallation> installationParseQuery = ParseInstallation.getQuery();
+            ParsePush.sendMessageInBackground(title.getText().toString(),
+                    installationParseQuery,
+                    new SendCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e == null)
+                                Toast.makeText(getApplication(), "push sending Success ", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else {
+            ParsePush pp = new ParsePush();
+            pp.setMessage(title.getText().toString());
+            pp.setChannel(getIntent().getStringExtra("channel"));
+            pp.sendInBackground(new SendCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e == null)
+                        Toast.makeText(getApplication(), "push sending Success ", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+
     }
 }

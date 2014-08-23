@@ -14,6 +14,8 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import sunil.dhaker.iitgnotif.LostOrFoundItem;
@@ -26,15 +28,18 @@ public class LostAndFoundAdapter extends BaseAdapter implements AbsListView.OnSc
 
     ArrayList<LostOrFoundItem> items;
     Context c;
+    Date current;
 
     public LostAndFoundAdapter(Context c) {
         this.c = c;
         items = new ArrayList<LostOrFoundItem>();
+        current = Calendar.getInstance().getTime();
+        loadFeed();
     }
 
     @Override
     public int getCount() {
-        return 10;
+        return items.size();
     }
 
     @Override
@@ -52,43 +57,39 @@ public class LostAndFoundAdapter extends BaseAdapter implements AbsListView.OnSc
 
         LayoutInflater inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = convertView;
-        // LostOrFoundItem item = items.get(position);
+        LostOrFoundItem item = items.get(position);
         ViewHolder mViewHolder;
         if (v == null) {//first time creation
             v = inflater.inflate(R.layout.lost_found_item, parent, false);
             mViewHolder = new ViewHolder(v);
             v.setTag(mViewHolder);
             mViewHolder = (ViewHolder) v.getTag();
-//            if (isForParticularChannel)
-//                v.findViewById(R.id.chennal_stamp).setVisibility(View.INVISIBLE);
-//            mViewHolder.headerText.setText(item.getHeader());
-//            mViewHolder.contentText.setText(item.getContent());
-//            mViewHolder.dateText.setText(item.getDate().getDay() + "/" + item.getDate().getMonth());
-//            mViewHolder.channelText.setText(item.getChannel());
-//            if (item.getIsEvent()) {
-//                mViewHolder.eventDateText.setVisibility(View.VISIBLE);
-//                mViewHolder.eventDateText.setText(item.getEventDate().getDay() + "/" + item.getEventDate().getMonth());
-//                mViewHolder.eventVenueText.setVisibility(View.VISIBLE);
-//                mViewHolder.eventVenueText.setText(item.getEventVenue());
-//            } else {
-//                mViewHolder.eventDateText.setVisibility(View.INVISIBLE);
-//                mViewHolder.eventVenueText.setVisibility(View.INVISIBLE);
-//            }
-//        } else {
-//            mViewHolder = (ViewHolder) v.getTag();
-//            mViewHolder.headerText.setText(item.getHeader());
-//            mViewHolder.contentText.setText(item.getContent());
-//            mViewHolder.dateText.setText(item.getDate().getDay() + "/" + item.getDate().getMonth());
-//            mViewHolder.channelText.setText(item.getChannel());
-//            if (item.getIsEvent()) {
-//                mViewHolder.eventDateText.setVisibility(View.VISIBLE);
-//                mViewHolder.eventDateText.setText(item.getEventDate().getDay() + "/" + item.getEventDate().getMonth());
-//                mViewHolder.eventVenueText.setVisibility(View.VISIBLE);
-//                mViewHolder.eventVenueText.setText(item.getEventVenue());
-//            } else {
-//                mViewHolder.eventDateText.setVisibility(View.INVISIBLE);
-//                mViewHolder.eventVenueText.setVisibility(View.INVISIBLE);
-//            }
+
+            mViewHolder.headerText.setText(item.getItemName());
+            mViewHolder.contentText.setText(item.getDescription());
+            long min = current.getTime() / 60000 - item.getCreatedAt().getTime() / 60000;
+            if (min < 60)
+                mViewHolder.dateText.setText(min + " min");
+            else if (min < 60 * 24)
+                mViewHolder.dateText.setText(min / 60 + " hr");
+            else
+                mViewHolder.dateText.setText(min / (60 * 24) + " days");
+            mViewHolder.eventVenueText.setText(item.getPlace());
+            mViewHolder.eventDateText.setText(item.getDateString());
+        } else {
+            mViewHolder = (ViewHolder) v.getTag();
+            mViewHolder.headerText.setText(item.getItemName());
+            mViewHolder.contentText.setText(item.getDescription());
+            long min = current.getTime() / 60000 - item.getCreatedAt().getTime() / 60000;
+            if (min < 60)
+                mViewHolder.dateText.setText(min + " min");
+            else if (min < 60 * 24)
+                mViewHolder.dateText.setText(min / 60 + " hr");
+            else
+                mViewHolder.dateText.setText(min / (60 * 24) + " days");
+            mViewHolder.eventVenueText.setText(item.getPlace());
+            mViewHolder.eventDateText.setText(item.getDateString());
+
         }
 
         return v;
@@ -117,7 +118,7 @@ public class LostAndFoundAdapter extends BaseAdapter implements AbsListView.OnSc
             @Override
             public void done(List<LostOrFoundItem> items1, ParseException e) {
                 if (e == null) {
-                    items1 = (ArrayList<LostOrFoundItem>) items1;
+                    items = (ArrayList<LostOrFoundItem>) items1;
                     notifyDataSetChanged();
                 } else {
                     Toast.makeText(c, R.string.loading_feed_error, Toast.LENGTH_SHORT);
@@ -129,15 +130,15 @@ public class LostAndFoundAdapter extends BaseAdapter implements AbsListView.OnSc
 
 
     private class ViewHolder {
-        public TextView headerText, contentText, dateText, eventDateText, channelText, eventVenueText;
+        public TextView headerText, contentText, dateText, eventDateText, eventVenueText;
 
         public ViewHolder(View v) {
 
             headerText = (TextView) v.findViewById(R.id.lf_header);
             contentText = (TextView) v.findViewById(R.id.lf_description);
-            dateText = (TextView) v.findViewById(R.id.lf_date_stamp);
+            dateText = (TextView) v.findViewById(R.id.lf_date);
             eventDateText = (TextView) v.findViewById(R.id.lf_date_stamp);
-            channelText = (TextView) v.findViewById(R.id.lf_venue);
+            eventVenueText = (TextView) v.findViewById(R.id.lf_venue_stamp);
         }
     }
 

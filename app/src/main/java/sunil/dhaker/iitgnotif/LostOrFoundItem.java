@@ -8,11 +8,8 @@ import java.util.Date;
 /**
  * Created by Sunil965@live.com(Sunil Dhaker) on 07-08-2014.
  */
-@ParseClassName("Notification")
+@ParseClassName("LostOrFoundItem")
 public class LostOrFoundItem extends ParseObject {
-    public static int LOST = 0;
-    public static int FOUND = 1;
-
 
     public void setLOSTorFOUND(int type) {
         put("type", type);
@@ -62,12 +59,19 @@ public class LostOrFoundItem extends ParseObject {
         return getString("place");
     }
 
+    public Date getDateTime() {
+        return getDate("date");
+    }
+
     public void setDateTime(Date date) {
         put("date", date);
     }
 
-    public Date getDate() {
-        return getDate("date");
+    public void setDateTimeString(String date) {
+        put("date_string", date);
     }
 
+    public String getDateString() {
+        return getString("date_string");
+    }
 }

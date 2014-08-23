@@ -1,6 +1,7 @@
 package sunil.dhaker.iitgnotif;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -68,14 +69,18 @@ public class Registration extends Activity {
             user.setPassword(password.getText().toString());
             user.setUsername(webmail.getText().toString().split("@")[0]);
             user.put("Name", username.getText().toString());
+            final ProgressDialog p = ProgressDialog.show(this , "Signing Up" , "");
             user.signUpInBackground(new SignUpCallback() {
                 @Override
                 public void done(ParseException e) {
                     if (e == null) {
                         Toast.makeText(getApplication(), "You are registered successfully , check your email to complete registration ", Toast.LENGTH_SHORT).show();
+                        p.dismiss();
                         finish();
                     } else {
                         Log.d("", e.getMessage());
+                        Toast.makeText(getApplication(), "Registration Failed ", Toast.LENGTH_SHORT).show();
+                        p.dismiss();
                     }
                 }
             });

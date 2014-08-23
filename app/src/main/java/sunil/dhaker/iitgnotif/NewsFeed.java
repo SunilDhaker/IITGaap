@@ -11,10 +11,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.parse.ParseException;
 import com.parse.PushService;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import sunil.dhaker.iitgnotif.adapters.FeedAdapter;
 
@@ -59,13 +61,17 @@ public class NewsFeed extends Fragment implements ListView.OnItemClickListener {
         Activity activity = getActivity();
         FragmentManager fm = activity.getFragmentManager();
         Notification notification = (Notification) parent.getItemAtPosition(position);
+
         Intent i = new Intent(activity, DetailFeed.class);
         i.putExtra("notif", notification.getID());
         i.putExtra("title", notification.getHeader());
         i.putExtra("content", notification.getContent());
         i.putExtra("isEvent", notification.getIsEvent());
         i.putExtra("event_venue", notification.getEventVenue());
-        i.putExtra("event_time", notification.getEventDate());
+        Date d = notification.getEventDate();
+        i.putExtra("event_time", d.getHours() + ":" + d.getMinutes() + " " + d.getDay() + "/" + d.getMonth());
+        i.putExtra("channel", notification.getChannel());
+        i.putExtra("sender", notification.getSenderName());
         long min = Calendar.getInstance().getTime().getTime() / 60000 - notification.getDate().getTime() / 60000;
         if (min < 60)
             i.putExtra("time", min + " min ago");
