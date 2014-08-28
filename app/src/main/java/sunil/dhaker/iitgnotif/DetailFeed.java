@@ -114,8 +114,8 @@ public class DetailFeed extends Activity {
                     eventDate.setText(d.getHours() + ":" + d.getMinutes() + " " + d.getDay() + "/" + d.getMonth());
                     eventVenue.setText(notification.getEventVenue());
                 } else {
-                    eventDate.setVisibility(View.INVISIBLE);
-                    eventVenue.setVisibility(View.INVISIBLE);
+                    eventDate.setVisibility(View.GONE);
+                    eventVenue.setVisibility(View.GONE);
                 }
             }
         });

@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="120dp"
-    android:background="@android:color/white"
+    android:background="@drawable/item_selector"
     android:gravity="top"
     android:orientation="vertical"
-    android:paddingBottom="10dp"
-    android:paddingTop="10dp">
+    android:paddingBottom="5dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="5dp">
 
 
     <LinearLayout
@@ -59,6 +61,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:maxLines="3"
+            android:paddingLeft="3dp"
+            android:paddingRight="0dp"
             android:text="As per academic calender there will be monday time table today i.e. friday 3/2/14 "
             android:textSize="15dip" />
 
@@ -101,7 +105,8 @@
             android:text="26/5"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/white"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/event_venue_stamp"
@@ -117,7 +122,8 @@
             android:text="auditorium"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/white"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:visibility="gone" />
 
 
     </RelativeLayout>

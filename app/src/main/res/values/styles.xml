@@ -12,7 +12,7 @@
 
     <!-- ActionBar styles -->
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">#ff666bff</item>
+        <item name="android:background">@drawable/selector2</item>
     </style>
 
 

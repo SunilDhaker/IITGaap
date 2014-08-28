@@ -63,7 +63,7 @@ public class Home extends Activity
                 break;
             case 3:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, new Clubs())
+                        .replace(R.id.container, new ComingSoon())
                         .commit();
                 break;
             case 4:
@@ -75,6 +75,16 @@ public class Home extends Activity
             case 6:
                 Intent i1 = new Intent(this, Registration.class);
                 startActivity(i1);
+                break;
+            case 7:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, new ComingSoon())
+                        .commit();
+                break;
+            case 8:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, new ComingSoon())
+                        .commit();
                 break;
         }
 

@@ -75,7 +75,7 @@ public class Login extends Activity {
 
 //        login = login.split("@")[0];
 
-        final ProgressDialog p = ProgressDialog.show(this , "Loging in" ,":)" );
+        final ProgressDialog p = ProgressDialog.show(this, "Loging in", ":)");
         ParseUser.logInInBackground(login, pass, new LogInCallback() {
             @Override
             public void done(ParseUser parseUser, ParseException e) {
@@ -86,12 +86,19 @@ public class Login extends Activity {
                 } else {
                     Toast.makeText(getApplication(), "Login Failed", Toast.LENGTH_LONG);
                     p.dismiss();
-                    Intent i = new Intent(Login.this , Home.class);
+                    Intent i = new Intent(Login.this, Home.class);
                     startActivity(i);
                     finish();
                 }
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this, Home.class);
+        startActivity(i);
+        this.finish();
     }
 }

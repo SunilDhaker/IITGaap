@@ -20,9 +20,11 @@ import sunil.dhaker.iitgnotif.R;
 public class NavigationDrawerAdapter extends BaseAdapter {
     Context context;
     String[] choices;
+    int[] images;
 
     public NavigationDrawerAdapter(Context context) {
         this.context = context;
+        images = new int[8];
         choices = new String[]{
                 context.getString(R.string.title_myfeed),
                 context.getString(R.string.title_hoestels),
@@ -33,6 +35,14 @@ public class NavigationDrawerAdapter extends BaseAdapter {
                 context.getString(R.string.register),
                 context.getString(R.string.about_us)
         };
+        images[0] = R.drawable.newsfeed;
+        images[1] = R.drawable.hostel;
+        images[2] = R.drawable.acad;
+        images[3] = R.drawable.club;
+        images[4] = R.drawable.lostfound;
+        images[5] = R.drawable.bus;
+        images[6] = R.drawable.reg;
+        images[7] = R.drawable.about;
     }
 
     public static Bitmap GetBitmapClippedCircle(Bitmap bitmap) {
@@ -73,8 +83,8 @@ public class NavigationDrawerAdapter extends BaseAdapter {
         View v = inflater.inflate(R.layout.navigation_drawer_element, parent, false);
         TextView choiceText = (TextView) v.findViewById(R.id.choice_text);
         choiceText.setText(choices[position]);
-        Bitmap logo = BitmapFactory.decodeResource(context.getResources(), android.R.drawable.ic_menu_set_as);
-        logo = GetBitmapClippedCircle(logo);
+        Bitmap logo = BitmapFactory.decodeResource(context.getResources(), images[position]);
+        //logo = GetBitmapClippedCircle(logo);
         ImageView choiceImage = (ImageView) v.findViewById(R.id.choice_image);
         choiceImage.setImageBitmap(logo);
         return v;
