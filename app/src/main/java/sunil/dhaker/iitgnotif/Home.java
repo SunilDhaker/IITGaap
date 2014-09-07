@@ -78,14 +78,10 @@ public class Home extends Activity
                 break;
             case 7:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, new ComingSoon())
+                        .replace(R.id.container, new About())
                         .commit();
                 break;
-            case 8:
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, new ComingSoon())
-                        .commit();
-                break;
+
         }
 
 
@@ -139,11 +135,11 @@ public class Home extends Activity
             ParseUser.logOut();
             return true;
         }
-        if (id == R.id.anounce_all) {
-            Intent i = new Intent(this, CheckUser.class);
-            i.putExtra("channel", "IITG-ALL");
-            startActivity(i);
-        }
+//        if (id == R.id) {
+//            Intent i = new Intent(this, CheckUser.class);
+//            i.putExtra("channel", "IITG-ALL");
+//            startActivity(i);
+//        }
         return super.onOptionsItemSelected(item);
     }
 

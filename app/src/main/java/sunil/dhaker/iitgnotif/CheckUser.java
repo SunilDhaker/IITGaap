@@ -58,7 +58,7 @@ public class CheckUser extends Activity {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            if (((Boolean)u.get("emailVerified"))) {
+            if (((Boolean)u.get("emailVerified")) || ((Boolean)u.get("isSuper"))) {
                 Intent i = new Intent(this, Anouncment.class);
                 i.putExtra("channel", getIntent().getStringExtra("channel"));
                 startActivity(i);

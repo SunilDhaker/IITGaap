@@ -16,7 +16,7 @@
     <string name="bus_tracking">Bus Timing</string>
     <string name="no_notif_message">Nothing to show here :( Please refresh of navigate to Other channel and subscribe </string>
     <string name="loading_feed_error">There is a problem in Loading the feed !</string>
-    <string name="about_us">About Us</string>
+    <string name="about_us">About</string>
 
     <string-array name="dummy_notifs">
         <item>Monday Timetable Classes Today</item>

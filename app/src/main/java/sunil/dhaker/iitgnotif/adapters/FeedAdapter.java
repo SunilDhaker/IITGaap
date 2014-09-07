@@ -69,7 +69,7 @@ public class FeedAdapter extends BaseAdapter implements AbsListView.OnScrollList
             if (isForParticularChannel)
                 v.findViewById(R.id.chennal_stamp).setVisibility(View.INVISIBLE);
             mViewHolder.headerText.setText(notif.getHeader());
-            mViewHolder.contentText.setText(notif.getContent());
+            mViewHolder.contentText.setText(notif.getContent().trim());
             long min = current.getTime() / 60000 - notif.getDate().getTime() / 60000;
             if (min < 60)
                 mViewHolder.dateText.setText(min + " min");
@@ -90,7 +90,7 @@ public class FeedAdapter extends BaseAdapter implements AbsListView.OnScrollList
         } else {
             mViewHolder = (ViewHolder) v.getTag();
             mViewHolder.headerText.setText(notif.getHeader());
-            mViewHolder.contentText.setText(notif.getContent());
+            mViewHolder.contentText.setText(notif.getContent().trim());
             long min = current.getTime() / 60000 - notif.getDate().getTime() / 60000;
             if (min < 60)
                 mViewHolder.dateText.setText(min + " min");
@@ -122,13 +122,11 @@ public class FeedAdapter extends BaseAdapter implements AbsListView.OnScrollList
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-//        if (firstVisibleItem + visibleItemCount > totalItemCount - 3) {
-//            Toast.makeText(c, "loading", Toast.LENGTH_SHORT);
-//            if(totalItemCount > 9)
-//                loadMore(notificationList.get(totalItemCount-1));
-//            Log.d("","dffsdfsfsfsfsdf");
-//            notifyDataSetChanged();
-//        }
+        if (firstVisibleItem + visibleItemCount > totalItemCount - 3) {
+            if (totalItemCount > 9) {
+                loadMore(notificationList.get(totalItemCount - 1));
+            }
+        }
     }
 
     public void loadFeed() {
@@ -136,16 +134,16 @@ public class FeedAdapter extends BaseAdapter implements AbsListView.OnScrollList
         query.setCachePolicy(ParseQuery.CachePolicy.CACHE_THEN_NETWORK);
         query.whereContainedIn("channel", channels);
         query.addDescendingOrder("createdAt");
-        if (!isLoading)
-            query.findInBackground(new FindCallback<Notification>() {
-                @Override
-                public void done(List<Notification> notifications, ParseException e) {
-                    if (e == null) {
-                        notificationList = (ArrayList<Notification>) notifications;
-                        notifyDataSetChanged();
-                    }
+        query.setLimit(15);
+        query.findInBackground(new FindCallback<Notification>() {
+            @Override
+            public void done(List<Notification> notifications, ParseException e) {
+                if (e == null) {
+                    notificationList = (ArrayList<Notification>) notifications;
+                    notifyDataSetChanged();
                 }
-            });
+            }
+        });
     }
 
     public void loadMore(Notification lastNotif) {
@@ -153,11 +151,13 @@ public class FeedAdapter extends BaseAdapter implements AbsListView.OnScrollList
         query.addDescendingOrder("createdAt");
         query.whereLessThan("createdAt", lastNotif.getDate());
         query.setLimit(10);
-        if (!isLoading) {
+        if ((!isLoading)) {
             isLoading = true;
+            Toast.makeText(c, "loading", Toast.LENGTH_SHORT).show();
             query.findInBackground(new FindCallback<Notification>() {
                 @Override
                 public void done(List<Notification> notifications, ParseException e) {
+
                     if (e == null) {
                         addIfNotExist((ArrayList<Notification>) notifications);
                         notifyDataSetChanged();

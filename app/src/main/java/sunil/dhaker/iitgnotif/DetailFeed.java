@@ -2,6 +2,7 @@ package sunil.dhaker.iitgnotif;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -69,13 +70,14 @@ public class DetailFeed extends Activity {
 
     public void initializeView() {
         sHeader = getIntent().getStringExtra("title");
-        sContent = getIntent().getStringExtra("content");
+        sContent = (getIntent().getStringExtra("content"));
         isEvent = getIntent().getBooleanExtra("isEvent", false);
         stime = getIntent().getStringExtra("time");
         channels = getIntent().getStringExtra("channel");
         senders = getIntent().getStringExtra("sender");
         header.setText(sHeader);
         content.setText(sContent);
+        content.setMovementMethod(LinkMovementMethod.getInstance());
         datesent.setText(stime);
         channel.setText(channels);
         if (isEvent) {
@@ -86,7 +88,7 @@ public class DetailFeed extends Activity {
             eventContainer.setVisibility(View.VISIBLE);
             eventVenue.setText(sEventVenue);
         } else {
-            eventContainer.setVisibility(View.INVISIBLE);
+            eventContainer.setVisibility(View.GONE);
         }
         setTitle(senders);
     }
@@ -108,14 +110,12 @@ public class DetailFeed extends Activity {
                 else
                     datesent.setText(min / (60 * 24) + " days ago");
                 if (isEvent) {
-                    eventDate.setVisibility(View.VISIBLE);
-                    eventVenue.setVisibility(View.VISIBLE);
+                    eventContainer.setVisibility(View.VISIBLE);
                     Date d = notification.getEventDate();
                     eventDate.setText(d.getHours() + ":" + d.getMinutes() + " " + d.getDay() + "/" + d.getMonth());
                     eventVenue.setText(notification.getEventVenue());
                 } else {
-                    eventDate.setVisibility(View.GONE);
-                    eventVenue.setVisibility(View.GONE);
+                   eventContainer.setVisibility(View.GONE);
                 }
             }
         });

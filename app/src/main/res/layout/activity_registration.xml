@@ -23,18 +23,20 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentStart="true"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <EditText
             android:id="@+id/registration_username"
             android:layout_width="wrap_content"
+            android:background="@android:drawable/edit_text"
             android:layout_height="wrap_content"
             android:hint="Your Name " />
 
         <EditText
             android:id="@+id/registration_email"
             android:layout_width="wrap_content"
+            android:background="@android:drawable/edit_text"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="your iitg webmail id"
@@ -43,6 +45,7 @@
         <EditText
             android:id="@+id/registration_pass"
             android:layout_width="wrap_content"
+            android:background="@android:drawable/edit_text"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Choose a password"
@@ -51,6 +54,7 @@
         <EditText
             android:id="@+id/registration_pass_2"
             android:layout_width="wrap_content"
+            android:background="@android:drawable/edit_text"
             android:layout_height="wrap_content"
             android:layout_below="@+id/registration_pass"
             android:layout_centerHorizontal="true"

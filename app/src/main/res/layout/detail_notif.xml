@@ -3,15 +3,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/selector"
+    android:background="#b0cbcdd7"
     android:orientation="vertical"
-    android:weightSum="1">
-
+    android:weightSum="1"
+    android:id="@+id/main_contaner">
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/relative_main">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="10dp"
+        android:id="@+id/main_header"
         android:background="@android:color/white"
         android:orientation="vertical">
 
@@ -30,7 +35,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
 
             <TextView
                 android:id="@+id/nd_notif_cannel"
@@ -60,20 +67,27 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_height="fill_parent"
         android:layout_weight="0.91"
         android:background="@android:color/white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/linearLayout"
+        android:layout_below="@+id/main_header"
+        android:layout_above="@+id/nd_event_container"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="1dp">
+
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:fillViewport="false">
+            android:fillViewport="false"
+            android:layout_below="@+id/main_header"
+            android:layout_alignEnd="@+id/nd_event_container"
+            android:id="@+id/scrollView">
 
             <TextView
                 android:id="@+id/nd_content"
@@ -83,19 +97,21 @@
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
                 android:text="Content of notification "
+                android:autoLink="phone|email|web"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </ScrollView>
-
-
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/nd_event_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:background="#ffffffff"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/linearLayout"
+        android:visibility="visible"
+        android:layout_marginRight="5dp">
 
         <LinearLayout
             android:id="@+id/nd_event_time_container"
@@ -144,4 +160,5 @@
         </LinearLayout>
     </LinearLayout>
 
+</RelativeLayout>
 </LinearLayout>

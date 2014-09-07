@@ -63,7 +63,11 @@ public class Registration extends Activity {
         if (!password.getText().toString().contentEquals(confirmed_pass.getText().toString())) {
             errorMessage = "Password didn't mached";
             Toast.makeText(getApplication(), errorMessage, Toast.LENGTH_SHORT).show();
-        } else {
+        } else if(!(webmail.getText().toString().contains("@iitg.ac.in") ||webmail.getText().toString().contains("@iitg.ac.in") )){
+            errorMessage = "Only iitg webmails are allowed";
+            Toast.makeText(getApplication() , "ONLY IITG Webmail is allowed" , Toast.LENGTH_SHORT).show();
+        }
+        else {
             ParseUser user = new ParseUser();
             user.setEmail(webmail.getText().toString());
             user.setPassword(password.getText().toString());
